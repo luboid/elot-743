@@ -1,0 +1,3 @@
+﻿SELECT greekchar.translate('Πληκτρολογήστε το Ονοματεπώνυμό σας, στο πλαίσιο αριστερά. Αυτόματα θα πραγματοποιηθεί η μεταγραφή των Ελληνικών χαρακτήρων σε Λατινικούς σύμφωνα με το πρότυπο ΕΛΟΤ 743 (που είναι ταυτόσημο με το Διεθνές Πρότυπο ISO 843).') FROM dual;
+-- Πληκτρολογήστε το Ονοματεπώνυμό σας, στο πλαίσιο αριστερά. Αυτόματα θα πραγματοποιηθεί η μεταγραφή των Ελληνικών χαρακτήρων σε Λατινικούς σύμφωνα με το πρότυπο ΕΛΟΤ 743 (που είναι ταυτόσημο με το Διεθνές Πρότυπο ISO 843).
+-- Pliktrologiste to Onomateponymo sas, sto plaisio aristera. Aytomata tha pragmatopoiithei i metagrafi ton Ellinikon charaktiron se Latinikoys symfona me to protypo ELOT 743 (poy einai taytosimo me to Diethnes Protypo ISO 843).
