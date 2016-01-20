@@ -12,6 +12,7 @@ public class GreekChar {
     private static HashSet<String> greekSet = new HashSet();
     private static HashSet<String> viSet = new HashSet();
     private static Pattern pattern;
+    private static String regEx = "";
     
     public String greek;
     public boolean fivi;
@@ -45,11 +46,21 @@ public class GreekChar {
     
     private static void put(GreekChar cr)
     {
+        if (regEx.length() != 0)
+            regEx = regEx + "|";
+        
+        regEx = regEx + cr.greek;
+        
         characters.put(cr.greek, cr);
     }
     
     private static void put(String greek, String greeklish)
     {
+        if (regEx.length() != 0)
+            regEx = regEx + "|";
+        
+        regEx = regEx + greek;
+        
         characters.put(greek, new GreekChar(greek, greeklish));
     }
     
@@ -68,30 +79,29 @@ public class GreekChar {
         return text;
       }
     }
-    
+	
     public static String translate(String text)
     {
-        //init();
-        
         if (null == text)
         {
             return null;
         }
-        
+
         int length = text.length();
         if (0 == length)
         {
             return null;
         }
 
-        int i_1, i_2; String c_1, c_2, replace, group;
+        int i_1, i_2; String c_1, c_2, replace, group, lower;
         GreekChar gc; 
         StringBuffer sb = new StringBuffer();
         Matcher m = GreekChar.pattern.matcher(text);
         while (m.find()) {
             replace = "";
             group = m.group();
-            gc = GreekChar.characters.get(group.toLowerCase());
+            lower = group.toLowerCase(); // ΤΣ -> τς
+            gc = GreekChar.characters.get(lower);            
             if (gc.bi) 
             {
                 i_1 = m.start() -1;
@@ -128,28 +138,10 @@ public class GreekChar {
         m.appendTail(sb);
 
         return sb.toString();
-    }   
-
+    }	
+    
     static
     {
-        /*class StrComparator implements Comparator<String>{
-            @Override
-            public int compare(String e1, String e2) {
-                int i_1 = e1.length();
-                int i_2 = e2.length();
-                if (i_1 == i_2) {
-                    return e1.compareToIgnoreCase(e2);
-                }
-                else {
-                    if(i_1 < i_2){
-                        return 1;
-                    } else {
-                        return -1;
-                    }            
-                }
-            }
-        }*/   
-        
         GreekChar.put(new GreekChar("αι", "ai"));
         GreekChar.put(new GreekChar("αί", "ai"));
         GreekChar.put(new GreekChar("οι", "oi"));
@@ -167,6 +159,7 @@ public class GreekChar {
         GreekChar.put(new GreekChar("ντ", "nt"));
         GreekChar.put(new GreekChar("μπ", false, null, true));
         GreekChar.put(new GreekChar("τσ", "ts"));
+        GreekChar.put(new GreekChar("τς", "ts"));
         GreekChar.put(new GreekChar("τζ", "tz"));
         GreekChar.put(new GreekChar("γγ", "ng"));
         GreekChar.put(new GreekChar("γκ", "gk"));
@@ -209,26 +202,6 @@ public class GreekChar {
             GreekChar.viSet.add(chGreek);
         }
         
-        ArrayList<String> greeks = new ArrayList();
-        for(GreekChar gc : GreekChar.characters.values())
-        {
-            greeks.add(gc.greek);
-        }
-        //greeks.sort(new StrComparator());
-        
-        //RegEx
-        //grLetters = String.join("|", greeks);
-        String regEx = "";
-        for(int i = 0, l = greeks.size(); i<l; i++)
-        {
-            if (0 < i && i <= (l-1))
-            {
-               regEx = regEx + "|";
-            }
-            regEx = regEx + greeks.get(i);
-        }
-
         pattern = Pattern.compile(regEx, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE);
     }
 }
-/
