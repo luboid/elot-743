@@ -107,13 +107,13 @@ public class GreekChar {
             replace = "";
             group = m.group();
             lower = group.toLowerCase(); // ΤΣ -> τς
-            gc = GreekChar.characters.get(lower);            
+            gc = GreekChar.characters.get(lower);
             if (gc.bi) 
             {
                 i_1 = m.start() -1;
                 i_2 = m.start() +2;
-                c_1 = length >= i_1 ? "" : String.valueOf(text.charAt(i_1));
-                c_2 = length >= i_2 ? "" : String.valueOf(text.charAt(i_2));
+                c_1 = i_1 >= 0     ? String.valueOf(text.charAt(i_1)).toLowerCase() : "";
+                c_2 = i_2 < length ? String.valueOf(text.charAt(i_2)).toLowerCase() : "";
                 if (GreekChar.greekSet.contains(c_1) && GreekChar.greekSet.contains(c_2))
                 {
                     replace = GreekChar.fixCase("mp", group);
@@ -129,7 +129,7 @@ public class GreekChar {
                 {
                     i_2 = m.start() +2;
                     c_1 = GreekChar.characters.get(String.valueOf(group.charAt(0)).toLowerCase()).greeklish;
-                    c_2 = length <= i_2 ? "" : (GreekChar.viSet.contains(String.valueOf(text.charAt(i_2))) ? "v" : "f");
+                    c_2 = i_2 < length ? (GreekChar.viSet.contains(String.valueOf(text.charAt(i_2)).toLowerCase()) ? "v" : "f") : "";
                     replace = GreekChar.fixCase(c_1 + c_2, group);
                 } 
                 else 
@@ -144,7 +144,7 @@ public class GreekChar {
         m.appendTail(sb);
 
         return sb.toString();
-    }   
+    }
     
     static
     {

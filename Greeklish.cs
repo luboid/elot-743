@@ -115,7 +115,7 @@ namespace PRCB.Text
                 var letter = Letters[m.Value.ToLower()];
                 if (letter.Bi)
                 {
-                    var c1 = m.Index - 1 > 0 ? greek[m.Index - 1].ToString().ToLower()[0] : ' ';
+                    var c1 = m.Index - 1 >= 0 ? greek[m.Index - 1].ToString().ToLower()[0] : ' ';
                     var c2 = m.Index + 2 < greek.Length ? greek[m.Index + 2].ToString().ToLower()[0] : ' ';
 
                     var bi = (GreekSet.Contains(c1) && GreekSet.Contains(c2)) ? "mp" : "b";
